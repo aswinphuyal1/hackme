@@ -57,7 +57,7 @@ const mapSoilMoisture = (rawValue) => {
   return Math.max(0, Math.min(100, 100 - (rawValue / 1024) * 100));
 };
 
-export function DashboardContent() {
+export function Dashboard_Content() {
   const [sensorData, setSensorData] = useState(initialSensorData);
   const [isConnected, setIsConnected] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
