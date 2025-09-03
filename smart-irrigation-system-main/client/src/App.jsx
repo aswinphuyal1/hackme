@@ -1,6 +1,5 @@
-import { DashboardContent } from "./components/sections/dashboard-content";
-import { DashboardLayout } from "./components/sections/dashboard-layout";
-
+import { DashboardContent } from "./components/sections/DashboardContent";
+import { DashboardLayout } from "./components/sections/DashboardLayout";
 function App() {
   return (
     <DashboardLayout>
