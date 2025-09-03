@@ -8,7 +8,7 @@ import {
 } from "react-router-dom";
 import { BarChart2, Menu, X, Scan } from "lucide-react";
 import Camera from "./Camera";
-import { Dashboard_Content } from "./DashboardContent";
+import { DashboardContent } from "./DashboardContent";
 
 // Utility function to conditionally apply class names
 const cn = (...args) => args.filter(Boolean).join(" ");
@@ -22,10 +22,10 @@ const Button = ({ children, className, onClick }) => (
 const ThemeToggle = () => <div className="p-2">Theme Toggle</div>;
 
 // Dashboard Content Component
-const DashboardContent = () => {
+const Dashboard_Content = () => {
   return (
     <div>
-      <Dashboard_Content/>
+      <DashboardContent/>
     </div>
   );
 };
@@ -152,8 +152,8 @@ export function DashboardLayout() {
       <main className="flex-1 mx-auto">
         <div className="container py-4">
           <Routes>
-            <Route path="/" element={<DashboardContent />} />
-            <Route path="/dashboard" element={<DashboardContent />} />
+            <Route path="/" element={<Dashboard_Content />} />
+            <Route path="/dashboard" element={<Dashboard_Content />} />
             <Route path="/crop-detection" element={<CropDetectionContent />} />
           </Routes>
         </div>
