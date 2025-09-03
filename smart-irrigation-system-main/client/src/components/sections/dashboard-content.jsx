@@ -14,6 +14,9 @@ import {
   Zap,
   GaugeIcon,
   BarChart2,
+  Settings,
+  CircleCheck,
+  CircleX,
 } from "lucide-react";
 import {
   Card,
@@ -306,21 +309,33 @@ export function DashboardContent() {
         </CardContent>
       </Card>
 
-      {/* Control Panel */}
+      {/* New Control Panel UI */}
       <Card className="shadow-lg border-none bg-white">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-[#064232]">
-            <BarChart2 className="h-5 w-5" /> Control Panel
+            <Settings className="h-5 w-5" /> Control Panel
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="flex items-center justify-between p-3 rounded-lg bg-[#F5BABB]/20">
-            <div className="flex items-center gap-3">
-              <Power className="h-5 w-5 text-[#064232]" />
+          <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-[#F5BABB]/20 to-white">
+            <div className="flex items-center gap-4">
+              <div
+                className={`flex-shrink-0 p-3 rounded-full ${
+                  sensorData.pumpStatus
+                    ? "bg-[#064232] text-white"
+                    : "bg-[#F5BABB] text-[#064232]"
+                }`}
+              >
+                <Power className="h-6 w-6" />
+              </div>
               <div>
-                <div className="font-medium">Pump Status</div>
-                <div className="text-sm">
-                  {sensorData.pumpStatus ? "Active" : "Inactive"}
+                <div className="font-bold text-lg text-[#064232]">
+                  Pump Status
+                </div>
+                <div className="text-sm text-[#568F87]">
+                  {sensorData.pumpStatus
+                    ? "Currently Active"
+                    : "Currently Inactive"}
                 </div>
               </div>
             </div>
@@ -328,21 +343,33 @@ export function DashboardContent() {
               checked={sensorData.pumpStatus}
               onCheckedChange={togglePump}
               disabled={sensorData.autoMode}
-              className="data-[state=checked]:bg-[#064232]"
+              className="data-[state=checked]:bg-[#064232] disabled:opacity-50"
             />
           </div>
 
-          <div className="flex items-center justify-between p-3 rounded-lg bg-[#F5BABB]/20">
-            <div className="flex items-center gap-3">
-              {sensorData.autoMode ? (
-                <ToggleRight className="h-5 w-5 text-[#568F87]" />
-              ) : (
-                <ToggleLeft className="h-5 w-5 text-[#F5BABB]" />
-              )}
+          <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-[#F5BABB]/20 to-white">
+            <div className="flex items-center gap-4">
+              <div
+                className={`flex-shrink-0 p-3 rounded-full ${
+                  sensorData.autoMode
+                    ? "bg-[#568F87] text-white"
+                    : "bg-[#F5BABB] text-[#064232]"
+                }`}
+              >
+                {sensorData.autoMode ? (
+                  <ToggleRight className="h-6 w-6" />
+                ) : (
+                  <ToggleLeft className="h-6 w-6" />
+                )}
+              </div>
               <div>
-                <div className="font-medium">Auto Mode</div>
-                <div className="text-sm">
-                  {sensorData.autoMode ? "Enabled" : "Disabled"}
+                <div className="font-bold text-lg text-[#064232]">
+                  Auto Mode
+                </div>
+                <div className="text-sm text-[#568F87]">
+                  {sensorData.autoMode
+                    ? "System is in auto-control"
+                    : "Manual override enabled"}
                 </div>
               </div>
             </div>
@@ -355,7 +382,7 @@ export function DashboardContent() {
         </CardContent>
       </Card>
 
-      {/* System Status */}
+      {/* New System Status UI */}
       <Card className="shadow-lg border-none bg-white">
         <CardHeader>
           <CardTitle className="flex items-center gap-2 text-[#064232]">
@@ -364,41 +391,108 @@ export function DashboardContent() {
         </CardHeader>
         <CardContent>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {/* WebSocket Status */}
             <div
-              className={`flex items-center gap-3 p-3 rounded-lg ${
-                isConnected ? "bg-[#568F87]/20" : "bg-[#F5BABB]/20"
+              className={`flex items-center gap-3 p-4 rounded-xl transition-all duration-300 ${
+                isConnected
+                  ? "bg-[#E6F4EA] border-[#568F87] border"
+                  : "bg-[#FBE9E7] border-[#F5BABB] border"
               }`}
             >
-              {isConnected ? (
-                <Wifi className="h-5 w-5 text-[#064232]" />
-              ) : (
-                <WifiOff className="h-5 w-5 text-[#F5BABB]" />
-              )}
+              <div
+                className={`p-2 rounded-full ${
+                  isConnected
+                    ? "bg-[#568F87] text-white"
+                    : "bg-[#F5BABB] text-[#064232]"
+                }`}
+              >
+                {isConnected ? (
+                  <Wifi className="h-5 w-5" />
+                ) : (
+                  <WifiOff className="h-5 w-5" />
+                )}
+              </div>
               <div>
-                <div className="font-medium">WebSocket</div>
-                <div className="text-sm">
+                <div className="font-bold text-[#064232]">WebSocket</div>
+                <div
+                  className={`text-sm ${
+                    isConnected ? "text-[#568F87]" : "text-[#F5BABB]"
+                  }`}
+                >
                   {isConnected ? "Connected" : "Disconnected"}
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 rounded-lg bg-[#568F87]/20">
-              <Thermometer className="h-5 w-5 text-[#064232]" />
+
+            {/* ESP Status */}
+            <div
+              className={`flex items-center gap-3 p-4 rounded-xl transition-all duration-300 ${
+                sensorData.espConnected
+                  ? "bg-[#E6F4EA] border-[#568F87] border"
+                  : "bg-[#FBE9E7] border-[#F5BABB] border"
+              }`}
+            >
+              <div
+                className={`p-2 rounded-full ${
+                  sensorData.espConnected
+                    ? "bg-[#568F87] text-white"
+                    : "bg-[#F5BABB] text-[#064232]"
+                }`}
+              >
+                <Microchip className="h-5 w-5" />
+              </div>
               <div>
-                <div className="font-medium">DHT11 Sensor</div>
-                <div className="text-sm">Online</div>
+                <div className="font-bold text-[#064232]">ESP32 Board</div>
+                <div
+                  className={`text-sm ${
+                    sensorData.espConnected
+                      ? "text-[#568F87]"
+                      : "text-[#F5BABB]"
+                  }`}
+                >
+                  {sensorData.espConnected ? "Online" : "Offline"}
+                </div>
               </div>
             </div>
-            <div className="flex items-center gap-3 p-3 rounded-lg bg-[#568F87]/20">
-              <Sprout className="h-5 w-5 text-[#064232]" />
+
+            {/* All Sensors Status */}
+            <div
+              className={`flex items-center gap-3 p-4 rounded-xl transition-all duration-300 ${
+                sensorData.espConnected
+                  ? "bg-[#E6F4EA] border-[#568F87] border"
+                  : "bg-[#FBE9E7] border-[#F5BABB] border"
+              }`}
+            >
+              <div
+                className={`p-2 rounded-full ${
+                  sensorData.espConnected
+                    ? "bg-[#568F87] text-white"
+                    : "bg-[#F5BABB] text-[#064232]"
+                }`}
+              >
+                {sensorData.espConnected ? (
+                  <CircleCheck className="h-5 w-5" />
+                ) : (
+                  <CircleX className="h-5 w-5" />
+                )}
+              </div>
               <div>
-                <div className="font-medium">Soil Sensor</div>
-                <div className="text-sm">Online</div>
+                <div className="font-bold text-[#064232]">Sensors</div>
+                <div
+                  className={`text-sm ${
+                    sensorData.espConnected
+                      ? "text-[#568F87]"
+                      : "text-[#F5BABB]"
+                  }`}
+                >
+                  {sensorData.espConnected ? "Operational" : "Disconnected"}
+                </div>
               </div>
             </div>
           </div>
         </CardContent>
         <CardFooter className="text-sm text-[#568F87] border-t pt-4">
-          <Clock className="h-4 w-4" /> Last check:{" "}
+          <Clock className="h-4 w-4 mr-2" /> Last check:{" "}
           {formatDate(sensorData.lastUpdated)}
         </CardFooter>
       </Card>
