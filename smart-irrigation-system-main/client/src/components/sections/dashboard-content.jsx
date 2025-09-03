@@ -33,6 +33,10 @@ import { Gauge } from "@/components/sections/gauge";
 import { HistoryChart } from "@/components/sections/history-chart";
 import { cn } from "@/lib/utils";
 
+// Import the circular progress bar component and its styles
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+
 // WebSocket API endpoint
 const API = "ws://localhost:3000";
 
@@ -40,7 +44,7 @@ const API = "ws://localhost:3000";
 const initialSensorData = {
   temperature: 28.5,
   humidity: 65,
-  soilMoisture: 5,
+  soilMoisture: 500,
   pumpStatus: false,
   autoMode: true,
   lastUpdated: new Date().toISOString(),
@@ -253,31 +257,43 @@ export function DashboardContent() {
           </CardContent>
         </Card>
 
-        {/* Humidity */}
-        <Card className="shadow-lg border-none rounded-full w-64 h-64 flex flex-col items-center justify-center mx-auto bg-gradient-to-br from-[#568F87] to-[#064232] text-white">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 justify-center">
+        {/* Humidity with Circular Progress Bar */}
+        <Card className="shadow-lg border-none rounded-full w-64 h-64 flex flex-col items-center justify-center mx-auto bg-white p-4">
+          <CardHeader className="p-0">
+            <CardTitle className="flex items-center gap-2 justify-center text-center text-[#568F87]">
               <Droplet className="h-6 w-6" /> Humidity
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col items-center">
-            <div className="text-4xl font-bold">
-              {sensorData.humidity.toFixed(1)}%
-            </div>
+          <CardContent className="flex flex-col items-center justify-center flex-1 w-full p-2">
+            <CircularProgressbar
+              value={sensorData.humidity}
+              text={`${sensorData.humidity.toFixed(1)}%`}
+              styles={buildStyles({
+                pathColor: getGaugeColor(sensorData.humidity, "humidity"),
+                textColor: "#064232",
+                trailColor: "#d6d6d6",
+              })}
+            />
           </CardContent>
         </Card>
 
-        {/* Soil Moisture */}
-        <Card className="shadow-lg border-none rounded-full w-64 h-64 flex flex-col items-center justify-center mx-auto bg-gradient-to-br from-[#064232] to-[#F5BABB] text-white">
-          <CardHeader>
-            <CardTitle className="flex items-center gap-2 justify-center">
+        {/* Soil Moisture with Circular Progress Bar */}
+        <Card className="shadow-lg border-none rounded-full w-64 h-64 flex flex-col items-center justify-center mx-auto bg-white p-4">
+          <CardHeader className="p-0">
+            <CardTitle className="flex items-center gap-2 justify-center text-center text-[#064232]">
               <Sprout className="h-6 w-6" /> Soil Moisture
             </CardTitle>
           </CardHeader>
-          <CardContent className="flex flex-col items-center">
-            <div className="text-4xl font-bold">
-              {mappedSoilMoisture.toFixed(1)}%
-            </div>
+          <CardContent className="flex flex-col items-center justify-center flex-1 w-full p-2">
+            <CircularProgressbar
+              value={mappedSoilMoisture}
+              text={`${mappedSoilMoisture.toFixed(1)}%`}
+              styles={buildStyles({
+                pathColor: getGaugeColor(mappedSoilMoisture, "soilMoisture"),
+                textColor: "#064232",
+                trailColor: "#d6d6d6",
+              })}
+            />
           </CardContent>
         </Card>
       </div>
