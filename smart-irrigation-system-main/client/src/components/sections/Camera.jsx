@@ -14,7 +14,6 @@ const fileToBase64 = (file) => {
     reader.onerror = (error) => reject(error);
   });
 };
-
 const StructuredResponse = ({ content }) => {
   const { title, summary, issues } = JSON.parse(content);
   return (
