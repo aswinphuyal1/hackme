@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 // Use this model name for text and image understanding
 const API_MODEL = "gemini-2.5-flash-preview-05-20";
 // Please paste your API key here to make the application functional.
-const apiKey = "AIzaSyD_r4pHmiUbHducWLp3p5g_MQR2wP6hO00";
+const apiKey = "Api";
 
 // A helper function to convert a file to a base64 string
 const fileToBase64 = (file) => {
@@ -153,20 +153,20 @@ const Camera = () => {
         body: JSON.stringify(payload),
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        console.error("API Error:", errorData);
-        setMessages((prev) => [
-          ...prev,
-          {
-            text: `Error: ${errorData.error.message}`,
-            isUser: false,
-            timestamp: new Date().toLocaleTimeString(),
-            isStructured: false,
-          },
-        ]);
-        return;
-      }
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("API Error:", errorData);
+        setMessages((prev) => [
+          ...prev,
+          {
+            text: `Error: ${errorData.error.message}`,
+            isUser: false,
+            timestamp: new Date().toLocaleTimeString(),
+            isStructured: false,
+          },
+        ]);
+        return;
+      }
 
       const result = await response.json();
       const aiResponse = result.candidates?.[0]?.content?.parts?.[0]?.text;
