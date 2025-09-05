@@ -4,7 +4,7 @@ import React, { useState, useRef, useEffect } from "react";
 // Use this model name for text and image understanding
 const API_MODEL = "gemini-2.5-flash-preview-05-20";
 // Please paste your API key here to make the application functional.
-const apiKey = "Api";
+const apiKey = "";
 
 // A helper function to convert a file to a base64 string
 const fileToBase64 = (file) => {
