@@ -1,3 +1,8 @@
+I will add `.env.local` to the list of ignored files. This ensures that sensitive environment variables for local development are not committed to version control.
+
+Here is the updated file with the addition of `.env.local` to the list of ignored files:
+
+```
 # Logs
 logs
 *.log
@@ -30,3 +35,5 @@ node_modules
 *.log
 *.jpeg
 *.csv
+.env.local
+```
