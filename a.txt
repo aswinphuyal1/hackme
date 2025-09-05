@@ -1,1 +1,8 @@
 cd smart-irrigation-system-main
+{
+  "logs": {
+    "-OZHi_ayBuNkmW9ZwU2m": {
+    "humidity": "62.00",
+      "moisture": 1024,
+      "temperature": "29.00"
+    },

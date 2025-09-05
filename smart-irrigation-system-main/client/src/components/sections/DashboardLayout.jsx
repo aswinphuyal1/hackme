@@ -57,7 +57,7 @@ export function DashboardLayout() {
             <div className="mr-4 hidden md:flex">
               <Link to="/" className="flex items-center space-x-2">
                 <div className="relative h-8 w-8">
-                  <svg viewBox="0 0 24 24" className="h-8 w-8 text-green-600">
+                  <svg viewBox="0 0 24 24" className="h-8 w-8 text-purple-500">
                     <path
                       fill="currentColor"
                       d="M12,20A8,8 0 0,1 4,12A8,8 0 0,1 12,4A8,8 0 0,1 20,12A8,8 0 0,1 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,7A5,5 0 0,0 7,12A5,5 0 0,0 12,17A5,5 0 0,0 17,12A5,5 0 0,0 12,7Z"
@@ -65,8 +65,8 @@ export function DashboardLayout() {
                     <path fill="currentColor" d="M12,7V12L15,10.5L12,7" />
                   </svg>
                 </div>
-                <span className="font-bold text-xl text-green-600">
-                  agromate
+                <span className="font-bold text-xl text-amber-950">
+                  SOLUTION SQUAD
                 </span>
               </Link>
             </div>
